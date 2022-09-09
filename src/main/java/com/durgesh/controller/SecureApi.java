@@ -30,7 +30,6 @@ public class SecureApi {
 	@GetMapping("/India")
 	public String India(){
 		return "Welcome to India";
-		
 	}
 	
 	@GetMapping("/Germany")
