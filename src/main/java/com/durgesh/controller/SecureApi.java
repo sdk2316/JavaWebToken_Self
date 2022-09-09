@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/users")
-public class UserAuthController {
+@RequestMapping("/cog/v1")
+public class SecureApi {
 	
 	@GetMapping("/Uk")
 	public String hello(){

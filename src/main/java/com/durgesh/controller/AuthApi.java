@@ -23,6 +23,7 @@ public class AuthApi {
     @Autowired JwtTokenUtil jwtUtil;
      
     // add one record in user table 1st in database then try to login to get JWT token
+    //https://www.codejava.net/frameworks/spring-boot/spring-security-jwt-authentication-tutorial
     
     @PostMapping("/auth/login")
     public ResponseEntity<?> login(@RequestBody  AuthRequest request) {
