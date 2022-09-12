@@ -9,5 +9,11 @@ public class JwtAuthenticationApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(JwtAuthenticationApplication.class, args);
 	}
+	
+//	@Bean
+//	 BCryptPasswordEncoder passwordEncoder() {
+//		
+//		return new BCryptPasswordEncoder();
+//	}
 
 }

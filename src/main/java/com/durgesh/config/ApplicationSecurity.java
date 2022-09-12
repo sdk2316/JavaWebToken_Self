@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -17,6 +18,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.durgesh.jwt.JwtTokenFilter;
 import com.durgesh.repo.UserRepository;
 @EnableWebSecurity(debug = true)
+//@EnableWebSecurity
+//@EnableGlobalMethodSecurity(
+  //  prePostEnabled = false, securedEnabled = false, jsr250Enabled = true
+//)
 public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 	
 	 @Autowired
@@ -37,7 +42,7 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 			http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 			
 			http.authorizeRequests()
-			.antMatchers("/auth/login", "/docs/**", "/users/**").permitAll()
+			.antMatchers("/auth/login", "/users/saveUser").permitAll()
 					.anyRequest().authenticated();
 			
 	        http.exceptionHandling()

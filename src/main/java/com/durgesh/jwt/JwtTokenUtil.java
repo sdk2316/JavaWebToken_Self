@@ -2,9 +2,15 @@ package com.durgesh.jwt;
 
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 
 import com.durgesh.model.User;
@@ -27,15 +33,28 @@ public class JwtTokenUtil {
     @Value("${app.jwt.secret}")
     private String SECRET_KEY;
      
+//    public String generateAccessToken(User user) {
+//        return Jwts.builder()
+//                .setSubject(String.format("%s,%s", user.getId(), user.getEmail()))
+//                .setIssuer("CodeJava")
+//                .setIssuedAt(new Date())
+//                .setExpiration(new Date(System.currentTimeMillis() + EXPIRE_DURATION))
+//                .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
+//                .compact();
+//                 
+//    }
+    
+    
     public String generateAccessToken(User user) {
+        
         return Jwts.builder()
                 .setSubject(String.format("%s,%s", user.getId(), user.getEmail()))
-                .setIssuer("CodeJava")
+                .setIssuer("Cognizant")
+                .claim("roles", user.getRoles().toString())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRE_DURATION))
                 .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
                 .compact();
-                 
     }
     
     public boolean validateAccessToken(String token) {
@@ -61,7 +80,7 @@ public class JwtTokenUtil {
         return parseClaims(token).getSubject();
     }
      
-    private Claims parseClaims(String token) {
+    Claims parseClaims(String token) {
         return Jwts.parser()
                 .setSigningKey(SECRET_KEY)
                 .parseClaimsJws(token)
